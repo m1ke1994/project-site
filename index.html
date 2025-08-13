@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ООО «АРЕС» - Российский разработчик сетевого оборудования и ПО</title>
+    <meta name="description" content="АРЕС - разработка сетевого оборудования и специализированной операционной системы для построения надежной и безопасной ИТ-инфраструктуры" />
+    <meta name="keywords" content="арес, сетевое оборудование, маршрутизаторы, коммутаторы, межсетевой экран, операционная система, импортозамещение" />
+    <meta name="author" content="ООО «АРЕС»" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0056b3" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ares.ru/" />
+    <meta property="og:title" content="ООО «АРЕС» - Российский разработчик сетевого оборудования и ПО" />
+    <meta property="og:description" content="Разработка сетевого оборудования и специализированной операционной системы для построения надежной и безопасной ИТ-инфраструктуры" />
+    <meta property="og:image" content="https://ares.ru/og-image.jpg" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ares.ru/" />
+    <meta property="twitter:title" content="ООО «АРЕС» - Российский разработчик сетевого оборудования и ПО" />
+    <meta property="twitter:description" content="Разработка сетевого оборудования и специализированной операционной системы для построения надежной и безопасной ИТ-инфраструктуры" />
+    <meta property="twitter:image" content="https://ares.ru/twitter-image.jpg" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/src/main.ts" as="script" />
+    
+    <!-- SEO verification -->
+    <meta name="yandex-verification" content="verification_token" />
+    <meta name="google-site-verification" content="verification_token" />
+    
+    <!-- Mobile app capable -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="АРЕС" />
+    <meta name="application-name" content="АРЕС" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ares.ru/" />
+    
+    <!-- Scripts -->
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    
+    <!-- Inline critical CSS (optional) -->
+    <style>
+      :root {
+        --primary: #0056b3;
+        --secondary: #003366;
+        --accent: #00a0e9;
+      }
+      
+      body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Preload animation */
+      #app:empty::before {
+        content: '';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(0, 86, 179, 0.3);
+        border-radius: 50%;
+        border-top-color: #0056b3;
+        animation: spin 1s ease-in-out infinite;
+        transform: translate(-50%, -50%);
+      }
+      
+      @keyframes spin {
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+    </style>
+    
+    <!-- No-JS fallback -->
+    <noscript>
+      <div style="padding: 20px; text-align: center; font-family: sans-serif;">
+        <p>Для работы с сайтом ООО «АРЕС» необходимо включить JavaScript в настройках вашего браузера.</p>
+      </div>
+    </noscript>
+  </body>
+</html>
