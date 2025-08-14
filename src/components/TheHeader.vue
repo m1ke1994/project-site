@@ -141,13 +141,13 @@ const toggleDropdown = (event: MouseEvent) => {
       <nav class="flex items-center justify-between">
         <!-- Logo -->
         <router-link to="/" class="flex items-center">
-          <!-- SVG Logo -->
-          <svg class="h-8 w-8 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 5.75C3 4.78 3.79 4 4.75 4H19.25C20.21 4 21 4.78 21 5.75V11H3V5.75Z" fill="currentColor"/>
-            <path d="M3 13H21V18.25C21 19.21 20.21 20 19.25 20H4.75C3.79 20 3 19.21 3 18.25V13Z" fill="currentColor" fill-opacity="0.6"/>
-            <path d="M8 8H16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M8 16H16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+       <!-- Логотип компании как картинка из public/assets -->
+<img
+  src="/assets/Logo/logo.svg"
+  alt="Логотип компании"
+  class="h-8 w-8"
+/>
+
           <span class="text-2xl font-bold ml-2 text-[var(--primary)]">АРЕС</span>
         </router-link>
 

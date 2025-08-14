@@ -38,10 +38,10 @@ const socialLinks = [
   { name: 'ВКонтакте', icon: '/assets/FooterIcon/vk_icon.svg', href: '#' },
 
   // Иконка «Telegram» — кликабельная ссылка на соцсеть в блоке соц. иконок
-  { name: 'Telegram',  icon: '/assets/FooterIcon/telegram_icon.svg', href: '#' },
+  { name: 'Telegram', icon: '/assets/FooterIcon/telegram_icon.svg', href: '#' },
 
   // Иконка «Rutube» — кликабельная ссылка на соцсеть в блоке соц. иконок
-  { name: 'Rutube',    icon: '/assets/FooterIcon/rutube_icon.svg', href: '#' },
+  { name: 'Rutube', icon: '/assets/FooterIcon/rutube_icon.svg', href: '#' },
 ];
 </script>
 
@@ -54,34 +54,36 @@ const socialLinks = [
           <!-- Информация о компании -->
           <div class="lg:col-span-2">
             <div class="flex items-center mb-6">
-              <!-- ЛОГОТИП КОМПАНИИ (inline SVG): отображает фирменный знак в левом верхнем блоке футера -->
-              <svg class="h-10 w-10 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 5.75C3 4.78 3.79 4 4.75 4H19.25C20.21 4 21 4.78 21 5.75V11H3V5.75Z" fill="currentColor"/>
-                <path d="M3 13H21V18.25C21 19.21 20.21 20 19.25 20H4.75C3.79 20 3 19.21 3 18.25V13Z" fill="currentColor" fill-opacity="0.6"/>
-                <path d="M8 8H16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M8 16H16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
+              <!-- ЛОГОТИП КОМПАНИИ (картинка): файл logo.svg из папки public/assets/Logo/ -->
+              <img src="/assets/Logo/logo.svg" alt="Логотип АРЕС" class="h-10 w-10" />
               <span class="text-3xl font-bold ml-3">АРЕС</span>
             </div>
 
+
             <p class="text-gray-300 mb-6 opacity-60">
-              Российский разработчик и производитель сетевого оборудования и программного обеспечения для построения современных и безопасных ИТ-инфраструктур.
+              Российский разработчик и производитель сетевого оборудования и программного обеспечения для построения
+              современных и безопасных ИТ-инфраструктур.
             </p>
 
             <div class="space-y-3">
               <div class="flex items-center">
                 <!-- ИКОНКА ЛОКАЦИИ (inline SVG): маркер адреса компании -->
-                <svg class="w-5 h-5 mr-3 text-gray-300 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <svg class="w-5 h-5 mr-3 text-gray-300 opacity-60" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <span class="text-gray-300 opacity-60">г. Москва, ул. Космонавта Волкова, д. 6а</span>
               </div>
 
               <div class="flex items-center">
                 <!-- ИКОНКА E-MAIL (inline SVG): конверт, маркер контактного e-mail -->
-                <svg class="w-5 h-5 mr-3 text-gray-300 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <svg class="w-5 h-5 mr-3 text-gray-300 opacity-60" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 <span class="text-gray-300 opacity-60">office@aresdev.ru</span>
               </div>
@@ -89,24 +91,14 @@ const socialLinks = [
 
             <!-- Блок соц. иконок -->
             <div class="flex mt-6 space-x-4">
-              <a
-                v-for="link in socialLinks"
-                :key="link.name"
-                :href="link.href"
+              <a v-for="link in socialLinks" :key="link.name" :href="link.href"
                 class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                :title="link.name"
-                aria-label="Социальная ссылка"
-                rel="noopener"
-              >
+                :title="link.name" aria-label="Социальная ссылка" rel="noopener">
                 <!-- ИЗОБРАЖЕНИЕ СОЦСЕТИ (img):
                      - файл SVG из public/assets/FooterIcon/*.svg
                      - отвечает за иконку соответствующей соцсети в футере
                      - фильтр brightness-0 invert делает чёрную монохромную иконку белой -->
-                <img
-                  :src="link.icon"
-                  :alt="link.name"
-                  class="w-5 h-5 brightness-0 invert"
-                />
+                <img :src="link.icon" :alt="link.name" class="w-5 h-5 brightness-0 invert" />
               </a>
             </div>
           </div>
@@ -116,7 +108,8 @@ const socialLinks = [
             <h3 class="text-lg font-bold mb-4 text-white">Продукты</h3>
             <ul class="space-y-2">
               <li v-for="link in footerLinks.products" :key="link.name">
-                <router-link :to="link.path" class="text-gray-300 hover:text-white opacity-60 hover:opacity-100 transition-opacity">
+                <router-link :to="link.path"
+                  class="text-gray-300 hover:text-white opacity-60 hover:opacity-100 transition-opacity">
                   {{ link.name }}
                 </router-link>
               </li>
@@ -127,7 +120,8 @@ const socialLinks = [
             <h3 class="text-lg font-bold mb-4 text-white">Решения</h3>
             <ul class="space-y-2">
               <li v-for="link in footerLinks.solutions" :key="link.name">
-                <router-link :to="link.path" class="text-gray-300 hover:text-white opacity-60 hover:opacity-100 transition-opacity">
+                <router-link :to="link.path"
+                  class="text-gray-300 hover:text-white opacity-60 hover:opacity-100 transition-opacity">
                   {{ link.name }}
                 </router-link>
               </li>
@@ -138,7 +132,8 @@ const socialLinks = [
             <h3 class="text-lg font-bold mb-4 text-white">Компания</h3>
             <ul class="space-y-2">
               <li v-for="link in footerLinks.company" :key="link.name">
-                <router-link :to="link.path" class="text-gray-300 hover:text-white opacity-60 hover:opacity-100 transition-opacity">
+                <router-link :to="link.path"
+                  class="text-gray-300 hover:text-white opacity-60 hover:opacity-100 transition-opacity">
                   {{ link.name }}
                 </router-link>
               </li>
@@ -157,12 +152,8 @@ const socialLinks = [
           </div>
 
           <div class="flex space-x-6">
-            <router-link
-              v-for="link in footerLinks.legal"
-              :key="link.name"
-              :to="link.path"
-              class="text-gray-400 hover:text-white text-sm transition-colors"
-            >
+            <router-link v-for="link in footerLinks.legal" :key="link.name" :to="link.path"
+              class="text-gray-400 hover:text-white text-sm transition-colors">
               {{ link.name }}
             </router-link>
           </div>
@@ -174,11 +165,20 @@ const socialLinks = [
 
 <style scoped>
 /* Плавные ховеры */
-a { transition: color 0.2s ease; }
-input, button { transition: all 0.2s ease; }
+a {
+  transition: color 0.2s ease;
+}
+
+input,
+button {
+  transition: all 0.2s ease;
+}
 
 /* Мобильные отступы контейнера */
 @media (max-width: 768px) {
-  .container { padding-left: 1rem; padding-right: 1rem; }
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 </style>
