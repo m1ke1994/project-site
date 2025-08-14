@@ -390,47 +390,49 @@ const setActiveIndustry = (id: string) => {
           </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all border-t-4 border-[var(--primary)]">
-            <div class="w-14 h-14 bg-[var(--primary)] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
-              <span class="text-2xl font-bold text-[var(--primary)]">1</span>
-            </div>
-            <h3 class="text-xl font-bold mb-3">Аудит</h3>
-            <p class="text-gray-600">
-              Анализ существующей инфраструктуры, выявление узких мест и потенциальных рисков, определение требований
-            </p>
-          </div>
-          
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all border-t-4 border-[var(--primary)]">
-            <div class="w-14 h-14 bg-[var(--primary)] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
-              <span class="text-2xl font-bold text-[var(--primary)]">2</span>
-            </div>
-            <h3 class="text-xl font-bold mb-3">Проектирование</h3>
-            <p class="text-gray-600">
-              Разработка архитектуры решения, подбор оптимального оборудования и программного обеспечения
-            </p>
-          </div>
-          
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all border-t-4 border-[var(--primary)]">
-            <div class="w-14 h-14 bg-[var(--primary)] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
-              <span class="text-2xl font-bold text-[var(--primary)]">3</span>
-            </div>
-            <h3 class="text-xl font-bold mb-3">Внедрение</h3>
-            <p class="text-gray-600">
-              Поэтапное внедрение решения с минимальным влиянием на бизнес-процессы, тестирование и настройка
-            </p>
-          </div>
-          
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all border-t-4 border-[var(--primary)]">
-            <div class="w-14 h-14 bg-[var(--primary)] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
-              <span class="text-2xl font-bold text-[var(--primary)]">4</span>
-            </div>
-            <h3 class="text-xl font-bold mb-3">Сопровождение</h3>
-            <p class="text-gray-600">
-              Техническая поддержка, мониторинг работоспособности, обновления и расширение функциональности по мере необходимости
-            </p>
-          </div>
-        </div>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+  <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all border-t-4 border-[var(--primary)]">
+    <div class="w-14 h-14 bg-[var(--primary)] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+      <img :src="'/assets/audit.svg'" alt="Аудит" class="w-8 h-8">
+    </div>
+    <h3 class="text-xl font-bold mb-3">Аудит</h3>
+    <p class="text-gray-600">
+      Анализ существующей инфраструктуры, выявление узких мест и потенциальных рисков, определение требований
+    </p>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all border-t-4 border-[var(--primary)]">
+    <div class="w-14 h-14 bg-[var(--primary)] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+      <img :src="'/assets/design.svg'" alt="Проектирование" class="w-8 h-8">
+    </div>
+    <h3 class="text-xl font-bold mb-3">Проектирование</h3>
+    <p class="text-gray-600">
+      Разработка архитектуры решения, подбор оптимального оборудования и программного обеспечения
+    </p>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all border-t-4 border-[var(--primary)]">
+    <div class="w-14 h-14 bg-[var(--primary)] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+      <img :src="'/assets/deploy.svg'" alt="Внедрение" class="w-8 h-8">
+    </div>
+    <h3 class="text-xl font-bold mb-3">Внедрение</h3>
+    <p class="text-gray-600">
+      Поэтапное внедрение решения с минимальным влиянием на бизнес-процессы, тестирование и настройка
+    </p>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all border-t-4 border-[var(--primary)]">
+    <div class="w-14 h-14 bg-[var(--primary)] bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+      <img :src="'/assets/support.svg'" alt="Сопровождение" class="w-8 h-8">
+    </div>
+    <h3 class="text-xl font-bold mb-3">Сопровождение</h3>
+    <p class="text-gray-600">
+      Техническая поддержка, мониторинг работоспособности, обновления и расширение функциональности по мере необходимости
+    </p>
+  </div>
+</div>
+
+
       </div>
     </section>
     

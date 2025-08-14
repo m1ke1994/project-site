@@ -322,12 +322,17 @@ const closeSuccessMessage = () => {
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <h2 class="text-2xl font-bold p-6 border-b">Мы на карте</h2>
           <!-- Map placeholder - in a real application this would be a real map -->
-          <div class="w-full h-96 bg-gray-200 flex items-center justify-center">
-            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </div>
+         <!-- Интерактивная карта Москвы (OSM embed) с меткой на центре -->
+<div class="w-full h-96 rounded-lg overflow-hidden">
+  <iframe
+    class="w-full h-96 border-0"
+    title="Карта: Москва, ул. Космонавта Волкова, д. 6а"
+    src="https://www.openstreetmap.org/export/embed.html?bbox=37.502631%2C55.805312%2C37.522631%2C55.825312&layer=mapnik&marker=55.815312%2C37.512631"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
+</div>
+
+
         </div>
       </div>
     </section>
@@ -342,41 +347,60 @@ const closeSuccessMessage = () => {
           </p>
         </div>
         
-        <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="p-6">
-              <div class="flex items-center mb-4">
-                <svg class="w-10 h-10 text-[var(--primary)] mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <h3 class="text-xl font-bold">Политика обработки персональных данных</h3>
-              </div>
-              <p class="text-gray-600 mb-4">
-                Документ, определяющий порядок обработки и защиты персональных данных пользователей в соответствии с Федеральным законом №152-ФЗ.
-              </p>
-              <router-link to="/privacy-policy" class="btn btn-primary">
-                Ознакомиться
-              </router-link>
-            </div>
-          </div>
-          
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="p-6">
-              <div class="flex items-center mb-4">
-                <svg class="w-10 h-10 text-[var(--primary)] mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                <h3 class="text-xl font-bold">Условия использования</h3>
-              </div>
-              <p class="text-gray-600 mb-4">
-                Документ, определяющий правила и условия использования наших продуктов и услуг, а также веб-сайта компании.
-              </p>
-              <router-link to="/terms-of-use" class="btn btn-primary">
-                Ознакомиться
-              </router-link>
-            </div>
-          </div>
+       <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+  <!-- Карточка #1 -->
+  <article class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+    <div class="p-6 flex-1 flex flex-col">
+      <div class="flex items-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-[var(--primary)]/10 flex items-center justify-center mr-3">
+          <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
         </div>
+        <h3 class="text-xl font-bold leading-snug">Политика обработки персональных данных</h3>
+      </div>
+
+      <p class="text-gray-600 mb-6">
+        Документ, определяющий порядок обработки и защиты персональных данных пользователей в соответствии с Федеральным законом №152-ФЗ.
+      </p>
+
+      <!-- Кнопка всегда прижата к низу карточки -->
+      <div class="mt-auto">
+        <router-link to="/privacy-policy" class="btn btn-primary">
+          Ознакомиться
+        </router-link>
+      </div>
+    </div>
+  </article>
+
+  <!-- Карточка #2 -->
+  <article class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+    <div class="p-6 flex-1 flex flex-col">
+      <div class="flex items-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-[var(--primary)]/10 flex items-center justify-center mr-3">
+          <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold leading-snug">Условия использования</h3>
+      </div>
+
+      <p class="text-gray-600 mb-6">
+        Документ, определяющий правила и условия использования наших продуктов и услуг, а также веб-сайта компании.
+      </p>
+
+      <!-- Кнопка всегда прижата к низу карточки -->
+      <div class="mt-auto">
+        <router-link to="/terms-of-use" class="btn btn-primary">
+          Ознакомиться
+        </router-link>
+      </div>
+    </div>
+  </article>
+</div>
+
       </div>
     </section>
   </div>

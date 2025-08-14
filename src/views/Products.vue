@@ -282,70 +282,84 @@ onMounted(() => {
       </div>
     </section>
 
-    <!-- Products Grid -->
-    <section class="py-16">
-      <div class="container">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div
-            v-for="product in products"
-            :key="product.id"
-            class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer group"
-            @click="$router.push(product.path)"
-          >
-            <div class="aspect-w-16 aspect-h-9 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-              <div class="w-full h-full flex items-center justify-center">
-                <svg class="w-20 h-20 text-gray-400 group-hover:text-[var(--primary)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
-                  />
-                </svg>
-              </div>
+  <!-- Products Grid -->
+<section class="py-16">
+  <div class="container">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+      <div
+        v-for="product in products"
+        :key="product.id"
+        class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer group
+               h-full flex flex-col"
+        @click="$router.push(product.path)"
+        role="button"
+        tabindex="0"
+        @keydown.enter="$router.push(product.path)"
+      >
+        <!-- Медиа: фиксированное соотношение сторон -->
+        <div class="aspect-w-16 aspect-h-9 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+          <div class="w-full h-full flex items-center justify-center">
+            <svg class="w-20 h-20 text-gray-400 group-hover:text-[var(--primary)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Контент: тянется, низ — прижат -->
+        <div class="p-6 flex-1 flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xl font-bold">{{ product.name }}</h3>
+            <span
+              v-if="product.bestseller"
+              class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800"
+            >Хит</span>
+            <span
+              v-else-if="product.new"
+              class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"
+            >Новинка</span>
+          </div>
+
+          <!-- Краткое описание -->
+          <p class="text-gray-600 mb-4">
+            {{ product.shortDescription }}
+          </p>
+
+          <!-- Ключевые преимущества -->
+          <div class="mb-4">
+            <div class="flex flex-wrap gap-1">
+              <span
+                v-for="(benefit, index) in product.benefits.slice(0, 3)"
+                :key="benefit + index"
+                class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+              >
+                {{ benefit }}
+              </span>
             </div>
-            
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-xl font-bold">{{ product.name }}</h3>
-                <span
-                  v-if="product.bestseller"
-                  class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800"
-                >
-                  Хит
-                </span>
-                <span
-                  v-else-if="product.new"
-                  class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"
-                >
-                  Новинка
-                </span>
-              </div>
-              
-              <p class="text-gray-600 mb-4">{{ product.shortDescription }}</p>
-              
-              <!-- Key features -->
-              <div class="mb-4">
-                <div class="flex flex-wrap gap-1">
-                  <span
-                    v-for="(benefit, index) in product.benefits.slice(0, 3)"
-                    :key="benefit"
-                    class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
-                  >
-                    {{ benefit }}
-                  </span>
-                </div>
-              </div>
-              
-              <div class="flex items-center justify-between">
-                <span class="text-2xl font-bold text-[var(--primary)]">{{ product.price }}</span>
-                <div class="text-sm text-green-600 font-medium">{{ product.availability }}</div>
-              </div>
-            </div>
+          </div>
+
+          <!-- Нижняя строка: всегда у нижнего края карточки -->
+          <div class="mt-auto flex items-center justify-between pt-2">
+            <span class="text-xl font-bold text-[var(--primary)]">
+              {{ product.price }}
+            </span>
+            <span
+              class="text-sm font-medium"
+              :class="product.availability === 'В наличии' ? 'text-green-600' : 'text-gray-500'"
+            >
+              {{ product.availability }}
+            </span>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
     <!-- CTA Section -->
     <section class="py-16 bg-[var(--primary)]">
