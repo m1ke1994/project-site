@@ -286,99 +286,138 @@ const setActiveIndustry = (id: string) => {
       </div>
     </section>
 
-    <!-- Industry Details -->
-    <section id="industry-details" class="py-16 bg-gray-50">
-      <div class="container">
-        <div v-for="industry in industries" :key="industry.id" v-show="activeIndustry === industry.id">
-          <div class="max-w-3xl mx-auto text-center mb-12">
-            <h2 class="text-3xl font-bold mb-4">{{ industry.title }}</h2>
-            <p class="text-lg text-gray-600">{{ industry.description }}</p>
-          </div>
-          
-          <!-- Features and Benefits -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <!-- Features -->
-            <div class="bg-white rounded-lg shadow-md p-8">
-              <h3 class="text-xl font-bold mb-6 flex items-center">
-                <svg class="w-6 h-6 mr-2 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Ключевые возможности
-              </h3>
-              <ul class="space-y-4">
-                <li v-for="(feature, index) in industry.features" :key="index" class="flex items-start">
-                  <svg class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>{{ feature }}</span>
-                </li>
-              </ul>
-            </div>
-            
-            <!-- Benefits -->
-            <div class="bg-white rounded-lg shadow-md p-8">
-              <h3 class="text-xl font-bold mb-6 flex items-center">
-                <svg class="w-6 h-6 mr-2 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                Преимущества
-              </h3>
-              <ul class="space-y-4">
-                <li v-for="(benefit, index) in industry.benefits" :key="index" class="flex items-start">
-                  <svg class="w-5 h-5 text-blue-500 mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                  </svg>
-                  <span>{{ benefit }}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Case Studies -->
-          <h3 class="text-2xl font-bold mb-8 text-center">Наши проекты</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div v-for="(case_study, index) in industry.caseStudies" :key="index" 
-                class="bg-white rounded-lg shadow-md overflow-hidden">
-              <div class="bg-[var(--primary)] px-6 py-4 text-white">
-                <h4 class="text-xl font-bold">{{ case_study.name }}</h4>
-              </div>
-              <div class="p-6">
-                <p class="text-gray-600 mb-6">{{ case_study.description }}</p>
-                
-                <h5 class="font-bold text-gray-700 mb-3">Результаты:</h5>
-                <ul class="space-y-2 mb-6">
-                  <li v-for="(result, idx) in case_study.results" :key="idx" class="flex items-start">
-                    <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>{{ result }}</span>
-                  </li>
-                </ul>
-                
-                <h5 class="font-bold text-gray-700 mb-3">Использованные технологии:</h5>
-                <div class="flex flex-wrap gap-2">
-                  <span v-for="(tech, idx) in case_study.technologies" :key="idx"
-                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                    {{ tech }}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- CTA -->
-          <div class="bg-white rounded-lg shadow-md p-8 text-center">
-            <h3 class="text-2xl font-bold mb-4">Нужна консультация по внедрению?</h3>
-            <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Наши специалисты помогут подобрать оптимальный набор решений для вашей организации с учетом отраслевой специфики и требований.
-            </p>
-            <router-link to="/contacts" class="btn btn-primary text-lg px-8 py-3">
-              Связаться с нами
-            </router-link>
-          </div>
-        </div>
+<!-- Industry Details -->
+<section id="industry-details" class="py-16 bg-gray-50">
+  <!-- Центрируем и фиксируем максимальную ширину -->
+  <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+    <div
+      v-for="industry in industries"
+      :key="industry.id"
+      v-show="activeIndustry === industry.id"
+    >
+      <!-- Заголовок -->
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          {{ industry.title }}
+        </h2>
+        <p class="text-base md:text-lg text-gray-600">
+          {{ industry.description }}
+        </p>
       </div>
-    </section>
+
+      <!-- Возможности и Преимущества: одинаковая ширина и высота карточек -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 items-stretch">
+        <!-- Features -->
+        <article class="bg-white rounded-2xl shadow-md p-6 md:p-8 flex flex-col h-full">
+          <h3 class="text-lg md:text-xl font-bold mb-6 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            Ключевые возможности
+          </h3>
+          <ul class="space-y-4 flex-1">
+            <li
+              v-for="(feature, index) in industry.features"
+              :key="index"
+              class="flex items-start"
+            >
+              <svg class="w-5 h-5 text-green-600 mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-gray-700">{{ feature }}</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Benefits -->
+        <article class="bg-white rounded-2xl shadow-md p-6 md:p-8 flex flex-col h-full">
+          <h3 class="text-lg md:text-xl font-bold mb-6 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            Преимущества
+          </h3>
+          <ul class="space-y-4 flex-1">
+            <li
+              v-for="(benefit, index) in industry.benefits"
+              :key="index"
+              class="flex items-start"
+            >
+              <svg class="w-5 h-5 text-blue-600 mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"/>
+              </svg>
+              <span class="text-gray-700">{{ benefit }}</span>
+            </li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Кейсы: одинаковая ширина и выравнивание по высоте -->
+      <h3 class="text-2xl md:text-3xl font-bold mb-8 text-center">Наши проекты</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 items-stretch">
+        <article
+          v-for="(case_study, index) in industry.caseStudies"
+          :key="index"
+          class="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col h-full"
+        >
+          <header class="bg-[var(--primary)] px-6 py-4 text-white">
+            <h4 class="text-lg md:text-xl font-bold">{{ case_study.name }}</h4>
+          </header>
+
+          <div class="p-6 md:p-8 flex-1 flex flex-col">
+            <p class="text-gray-600 mb-6">
+              {{ case_study.description }}
+            </p>
+
+            <div class="mb-6">
+              <h5 class="font-bold text-gray-800 mb-3">Результаты:</h5>
+              <ul class="space-y-2">
+                <li
+                  v-for="(result, idx) in case_study.results"
+                  :key="idx"
+                  class="flex items-start"
+                >
+                  <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="text-gray-700">{{ result }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-auto">
+              <h5 class="font-bold text-gray-800 mb-3">Использованные технологии:</h5>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  v-for="(tech, idx) in case_study.technologies"
+                  :key="idx"
+                  class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
+                >
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-white rounded-2xl shadow-md p-6 md:p-10 text-center">
+        <h3 class="text-2xl md:text-3xl font-bold mb-4">Нужна консультация по внедрению?</h3>
+        <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+          Наши специалисты помогут подобрать оптимальный набор решений для вашей организации с учетом отраслевой специфики и требований.
+        </p>
+        <router-link
+          to="/contacts"
+          class="inline-flex items-center justify-center rounded-2xl btn btn-primary text-base md:text-lg px-6 md:px-8 py-3 transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary)]"
+        >
+          Связаться с нами
+        </router-link>
+      </div>
+    </div>
+  </div>
+</section>
+
     
     <!-- Methodology Section -->
     <section class="py-16 bg-white">
