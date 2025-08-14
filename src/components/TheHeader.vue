@@ -13,7 +13,8 @@ const isScrolled = ref(false);
 const menuItems = [
   { name: 'Главная', path: '/' },
   { name: 'О компании', path: '/about' },
-  { name: 'Продукты', path: '/products', 
+  {
+    name: 'Продукты', path: '/products',
     children: [
       { name: 'Mesh точка доступа Wi-Fi', path: '/products/mesh-wifi' },
       { name: 'Промышленный коммутатор', path: '/products/industrial-switch' },
@@ -29,8 +30,8 @@ const menuItems = [
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
-  
-  // Close search if it's open
+
+  // Если открыли меню — закрываем поиск
   if (isMenuOpen.value && isSearchOpen.value) {
     isSearchOpen.value = false;
   }
@@ -38,19 +39,17 @@ const toggleMenu = () => {
 
 const toggleSearch = () => {
   isSearchOpen.value = !isSearchOpen.value;
-  
-  // Close menu if it's open
+
+  // Если открыли поиск — закрываем меню
   if (isSearchOpen.value && isMenuOpen.value) {
     isMenuOpen.value = false;
   }
-  
-  // Focus the search input when opened
+
+  // Фокус в поле поиска при открытии
   if (isSearchOpen.value) {
     setTimeout(() => {
-      const searchInput = document.getElementById('header-search-input');
-      if (searchInput) {
-        searchInput.focus();
-      }
+      const searchInput = document.getElementById('header-search-input') as HTMLInputElement | null;
+      searchInput?.focus();
     }, 100);
   }
 };
@@ -65,41 +64,33 @@ const handleSearch = () => {
 
 const handleScroll = () => {
   const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-  
-  // Detect if page is scrolled for styling
+
+  // Флаг «прокручено» для стилизации
   isScrolled.value = currentScrollTop > 20;
-  
-  // Hide header on scroll down, show on scroll up
-  if (currentScrollTop > 150) { // Only apply hide/show after 150px scroll
+
+  // Прячем хедер при скролле вниз, показываем при скролле вверх (после 150px)
+  if (currentScrollTop > 150) {
     isHeaderHidden.value = currentScrollTop > lastScrollTop.value;
   }
-  
+
   lastScrollTop.value = currentScrollTop;
 };
 
-// Handle click outside to close dropdown menus
+// Закрытие выпадашек по клику вне их области
 const handleClickOutside = (event: MouseEvent) => {
   const target = event.target as HTMLElement;
   const dropdown = document.querySelector('.dropdown-menu');
-  
+
   if (dropdown && !dropdown.contains(target) && !target.classList.contains('dropdown-toggle')) {
     const openDropdowns = document.querySelectorAll('.dropdown-open');
-    openDropdowns.forEach(dropdown => {
-      dropdown.classList.remove('dropdown-open');
-    });
+    openDropdowns.forEach(d => d.classList.remove('dropdown-open'));
   }
 };
 
-// Close mobile menu when navigating and ensure header is visible
-const closeMenuOnNavigate = (to: any, from: any) => {
-  if (isMenuOpen.value) {
-    isMenuOpen.value = false;
-  }
-  if (isSearchOpen.value) {
-    isSearchOpen.value = false;
-  }
-  
-  // Always show header when navigating to a new page
+// Закрываем мобильное меню/поиск при навигации и показываем хедер
+const closeMenuOnNavigate = () => {
+  if (isMenuOpen.value) isMenuOpen.value = false;
+  if (isSearchOpen.value) isSearchOpen.value = false;
   isHeaderHidden.value = false;
 };
 
@@ -114,63 +105,62 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside);
 });
 
-// Toggle dropdown menu
+// Тоггл выпадающего меню (десктоп/мобайл)
 const toggleDropdown = (event: MouseEvent) => {
   const target = event.currentTarget as HTMLElement;
   const dropdown = target.nextElementSibling;
-  
-  if (dropdown) {
-    dropdown.classList.toggle('dropdown-open');
-  }
-  
+  dropdown?.classList.toggle('dropdown-open');
+
   event.preventDefault();
   event.stopPropagation();
 };
 </script>
 
 <template>
-  <header 
+  <header
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     :class="{
       'bg-white shadow-md': isScrolled,
-      'bg-transparent': !isScrolled, 
+      'bg-transparent': !isScrolled,
       '-translate-y-full': isHeaderHidden
     }"
   >
     <div class="container py-4">
       <nav class="flex items-center justify-between">
-        <!-- Logo -->
+        <!-- ЛОГО (img): файл public/assets/Logo/logo.svg — основной логотип в шапке -->
         <router-link to="/" class="flex items-center">
-       <!-- Логотип компании как картинка из public/assets -->
-<img
-  src="/assets/Logo/logo.svg"
-  alt="Логотип компании"
-  class="h-8 w-8"
-/>
-
+          <img src="/assets/Logo/logo.svg" alt="Логотип компании" class="h-8 w-8" />
           <span class="text-2xl font-bold ml-2 text-[var(--primary)]">АРЕС</span>
         </router-link>
 
-        <!-- Desktop Navigation -->
+        <!-- Навигация (десктоп) -->
         <div class="hidden lg:flex items-center space-x-2">
           <template v-for="item in menuItems" :key="item.name">
             <div class="relative group" v-if="item.children">
-              <button 
+              <button
                 class="px-3 py-2 rounded-lg transition-colors group-hover:bg-gray-100 
-                      text-gray-700 hover:text-[var(--primary)] font-medium
-                      flex items-center"
+                       text-gray-700 hover:text-[var(--primary)] font-medium flex items-center"
                 @click="toggleDropdown"
               >
                 {{ item.name }}
-                <svg class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
+
+                <!-- СТРЕЛКА ДЛЯ ДРОПДАУНА (img): public/assets/HeaderIcon/arrow.svg — индикатор подменю -->
+                <img
+                  class="ml-1 w-4 h-4 transition-transform group-hover:rotate-180"
+                  src="/assets/HeaderIcon/arrow.svg"
+                  alt="Открыть подменю"
+                />
               </button>
-              <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left scale-95 group-hover:scale-100">
+
+              <div
+                class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-20
+                       opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300
+                       transform origin-top-left scale-95 group-hover:scale-100"
+              >
                 <div class="py-2">
-                  <router-link 
-                    v-for="child in item.children" 
-                    :key="child.name" 
+                  <router-link
+                    v-for="child in item.children"
+                    :key="child.name"
                     :to="child.path"
                     class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[var(--primary)]"
                   >
@@ -179,67 +169,53 @@ const toggleDropdown = (event: MouseEvent) => {
                 </div>
               </div>
             </div>
-            <router-link 
+
+            <router-link
               v-else
               :to="item.path"
               class="px-3 py-2 rounded-lg transition-colors hover:bg-gray-100 
-                    text-gray-700 hover:text-[var(--primary)] font-medium"
+                     text-gray-700 hover:text-[var(--primary)] font-medium"
               :class="{ 'text-[var(--primary)] font-semibold': $route.path === item.path }"
             >
               {{ item.name }}
             </router-link>
           </template>
-          
-          <!-- Search button -->
-          <button 
+
+          <!-- КНОПКА ПОИСКА (img): public/assets/HeaderIcon/search.svg — иконка для открытия строки поиска -->
+          <button
             @click="toggleSearch"
             class="ml-2 p-2 rounded-full hover:bg-gray-100 text-gray-700"
             :class="{ 'bg-gray-100 text-[var(--primary)]': isSearchOpen }"
             aria-label="Поиск"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
+            <img class="w-5 h-5" src="/assets/HeaderIcon/search.svg" alt="" aria-hidden="true" />
           </button>
         </div>
 
-        <!-- Mobile Menu Button -->
+        <!-- Кнопки мобильной панели -->
         <div class="flex items-center lg:hidden">
-          <button 
+          <!-- КНОПКА ПОИСКА МОБАЙЛ (img): public/assets/HeaderIcon/search.svg — открывает поиск -->
+          <button
             @click="toggleSearch"
             class="p-2 rounded-full hover:bg-gray-100 text-gray-700 mr-2"
             :class="{ 'bg-gray-100 text-[var(--primary)]': isSearchOpen }"
             aria-label="Поиск"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
+            <img class="w-5 h-5" src="/assets/HeaderIcon/search.svg" alt="" aria-hidden="true" />
           </button>
-          
-          <button
-            class="p-2 rounded-lg hover:bg-gray-100 text-gray-700"
-            @click="toggleMenu"
-            aria-label="Меню"
-          >
+
+          <!-- КНОПКА БУРГЕР/КРЕСТ (inline SVG): иконки меню и закрытия на мобильных -->
+          <button class="p-2 rounded-lg hover:bg-gray-100 text-gray-700" @click="toggleMenu" aria-label="Меню">
             <span class="sr-only">Меню</span>
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 v-if="!isMenuOpen"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4 6h16M4 12h16M4 18h16"
               />
               <path
                 v-else
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
@@ -247,56 +223,56 @@ const toggleDropdown = (event: MouseEvent) => {
         </div>
       </nav>
 
-      <!-- Search Bar -->
-      <div 
-        v-show="isSearchOpen"
-        class="mt-4 relative"
-      >
+      <!-- Строка поиска -->
+      <div v-show="isSearchOpen" class="mt-4 relative">
         <div class="flex items-center bg-gray-100 rounded-lg overflow-hidden p-2 transition-all duration-300">
-          <svg class="w-5 h-5 text-gray-500 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-          <input 
-            id="header-search-input"
-            v-model="searchQuery" 
-            @keyup.enter="handleSearch"
-            type="text" 
-            placeholder="Поиск по сайту..."
-            class="w-full py-1 px-2 outline-none bg-transparent text-gray-700"
-          />
-          <button 
-            v-if="searchQuery" 
+          <div class="relative w-full">
+            <!-- ИКОНКА В ПОЛЕ ПОИСКА (img): public/assets/HeaderIcon/search.svg — декоративная лупа слева -->
+            <img
+              src="/assets/HeaderIcon/search.svg"
+              alt=""
+              aria-hidden="true"
+              class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none"
+            />
+
+            <input
+              id="header-search-input"
+              v-model="searchQuery"
+              @keyup.enter="handleSearch"
+              type="text"
+              placeholder="Поиск по сайту..."
+              class="w-full py-1 pr-2 pl-8 outline-none bg-transparent text-gray-700"
+            />
+          </div>
+
+          <!-- КНОПКА ОЧИСТКИ ПОИСКА (img): public/assets/HeaderIcon/close.svg — очистка введённого текста -->
+          <button
+            v-if="searchQuery"
             @click="searchQuery = ''"
             class="text-gray-500 hover:text-gray-700 mx-2"
+            aria-label="Очистить поиск"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
+            <img src="/assets/HeaderIcon/close.svg" alt="" aria-hidden="true" />
           </button>
         </div>
       </div>
 
-      <!-- Mobile Menu -->
-      <div
-        v-show="isMenuOpen"
-        class="lg:hidden mt-4 bg-white rounded-lg shadow-lg overflow-hidden"
-      >
+      <!-- Мобильное меню -->
+      <div v-show="isMenuOpen" class="lg:hidden mt-4 bg-white rounded-lg shadow-lg overflow-hidden">
         <div class="py-2 max-h-[calc(100vh-100px)] overflow-y-auto">
           <div v-for="item in menuItems" :key="item.name" class="relative">
             <div v-if="item.children" class="px-4 py-3 border-b border-gray-100">
-              <div 
-                class="flex justify-between items-center cursor-pointer text-gray-700"
-                @click="toggleDropdown($event)"
-              >
+              <div class="flex justify-between items-center cursor-pointer text-gray-700" @click="toggleDropdown($event)">
                 <span>{{ item.name }}</span>
-                <svg class="w-4 h-4 dropdown-toggle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
+
+                <!-- СТРЕЛКА РАЗВОРАЧИВАНИЯ (img): public/assets/HeaderIcon/arrow.svg — открыть/закрыть подраздел -->
+                <img class="w-4 h-4 dropdown-toggle" src="/assets/HeaderIcon/arrow.svg" alt="Развернуть" />
               </div>
+
               <div class="dropdown-menu hidden pl-4 mt-2 space-y-1 border-l-2 border-gray-100">
-                <router-link 
-                  v-for="child in item.children" 
-                  :key="child.name" 
+                <router-link
+                  v-for="child in item.children"
+                  :key="child.name"
                   :to="child.path"
                   class="block py-2 text-gray-600 hover:text-[var(--primary)]"
                   @click="isMenuOpen = false"
@@ -305,6 +281,7 @@ const toggleDropdown = (event: MouseEvent) => {
                 </router-link>
               </div>
             </div>
+
             <router-link
               v-else
               :to="item.path"
@@ -315,19 +292,18 @@ const toggleDropdown = (event: MouseEvent) => {
               {{ item.name }}
             </router-link>
           </div>
-          
-          <!-- Contact buttons in mobile menu -->
+
+          <!-- Контакты в мобильном меню -->
           <div class="p-4 space-y-2">
             <a href="tel:+7XXXXXXXXXX" class="flex items-center text-gray-700 py-2">
-              <svg class="w-5 h-5 mr-3 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
+              <!-- ИКОНКА ТЕЛЕФОНА (img): public/assets/HeaderIcon/phone.svg — звонок в один клик -->
+              <img class="w-5 h-5 mr-3" src="/assets/HeaderIcon/phone.svg" alt="" aria-hidden="true" />
               +7 (XXX) XXX-XX-XX
             </a>
+
             <a href="mailto:info@ares.ru" class="flex items-center text-gray-700 py-2">
-              <svg class="w-5 h-5 mr-3 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
+              <!-- ИКОНКА ПОЧТЫ (img): public/assets/HeaderIcon/mail.svg — отправить письмо на e-mail -->
+              <img class="w-5 h-5 mr-3" src="/assets/HeaderIcon/mail.svg" alt="" aria-hidden="true" />
               info@ares.ru
             </a>
           </div>
@@ -335,18 +311,18 @@ const toggleDropdown = (event: MouseEvent) => {
       </div>
     </div>
   </header>
-  
-  <!-- Spacer to prevent content from being hidden behind fixed header -->
-  <div :class="{'h-16': !isScrolled, 'h-20': isScrolled}"></div>
+
+  <!-- Отступ, чтобы контент не заезжал под фиксированный хедер -->
+  <div :class="{ 'h-16': !isScrolled, 'h-20': isScrolled }"></div>
 </template>
 
 <style scoped>
-/* Animation for the header transitions */
+/* Плавные анимации хедера */
 .fixed {
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Show dropdown menu properly on mobile */
+/* Корректный показ выпадашек на мобайле */
 .dropdown-open {
   display: block !important;
 }
