@@ -147,13 +147,13 @@ const socialLinks = [
     <div class="bg-[var(--secondary)]/90 text-gray-300 py-4 border-t border-gray-700">
       <div class="container">
         <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="mb-4 md:mb-0 text-center md:text-left text-[#003366] font-bold">
+          <div class="mb-4 md:mb-0 text-center md:text-left text-[#003366] opacity-70 font-bold">
             <p>&copy; {{ currentYear }} ООО «АРЕС». Все права защищены.</p>
           </div>
 
           <div class="flex space-x-6">
             <router-link v-for="link in footerLinks.legal" :key="link.name" :to="link.path"
-              class="text-gray-400 hover:text-white text-sm transition-colors">
+              class="text-[#003366] font-bold opacity-80 hover:opacity-100 text-sm transition-colors">
               {{ link.name }}
             </router-link>
           </div>
